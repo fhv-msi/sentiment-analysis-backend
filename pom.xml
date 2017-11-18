@@ -3,85 +3,85 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>at.fhv</groupId>
-	<artifactId>sentiment-analysis-uml</artifactId>
+	<artifactId>sentiment-analysis-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<properties>
-		<!-- version -->
-		<acceleo.version>3.6.4</acceleo.version>
+	<name>sentiment-analysis-backend</name>
+	<url>http://maven.apache.org</url>
 
-		<!-- generator settings -->
-		<generator.main.class>at.fhv.sentiment_analysis.generator.main.Main</generator.main.class>
-		<generator.uml.model>sentiment-analysis-uml.uml</generator.uml.model>
-		<generator.output.directory>../sentiment-analysis-backend</generator.output.directory>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>Eclipse - Acceleo Groups</id>
-			<url>https://repo.eclipse.org/content/groups/releases</url>
-		</repository>
-		<repository>
-			<id>Eclipse - Acceleo Snapshots</id>
-			<url>https://repo.eclipse.org/content/repositories/acceleo-snapshots</url>
-		</repository>
-		<repository>
-			<id>Eclipse - Acceleo Release</id>
-			<url>https://repo.eclipse.org/content/repositories/acceleo-releases</url>
-		</repository>
-		<repository>
-			<id>fhv-msi-sentiment_analysis</id>
-			<url>https://packagecloud.io/fhv-msi/sentiment_analysis/maven2</url>
-		</repository>
-	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>1.5.8.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+			<version>4.5.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.11</version>
+		</dependency>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>Eclipse - Acceleo Groups</id>
-			<url>https://repo.eclipse.org/content/groups/releases</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>Eclipse - Acceleo Snapshots</id>
-			<url>https://repo.eclipse.org/content/repositories/acceleo-snapshots</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>Eclipse - Acceleo Release</id>
-			<url>https://repo.eclipse.org/content/repositories/acceleo-releases</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>fhv-msi-sentiment_analysis</id>
-			<url>https://packagecloud.io/fhv-msi/sentiment_analysis/maven2</url>
-		</pluginRepository>
-	</pluginRepositories>
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.meanbean</groupId>
+			<artifactId>meanbean</artifactId>
+			<version>2.0.3</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.eclipse.acceleo</groupId>
-				<artifactId>org.eclipse.acceleo.maven.launcher</artifactId>
-				<version>${acceleo.version}</version>
-				<executions>
-					<execution>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>acceleo-launcher</goal>
-						</goals>
-					</execution>
-				</executions>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<generatorClass>${generator.main.class}</generatorClass>
-					<model>${generator.uml.model}</model>
-					<outputFolder>${generator.output.directory}</outputFolder>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>at.fhv</groupId>
-						<artifactId>sentiment-analysis-generator</artifactId>
-						<version>0.0.1-SNAPSHOT</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</pluginRepository>
+	</pluginRepositories>
 </project>
