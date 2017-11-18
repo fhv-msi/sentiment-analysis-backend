@@ -14,6 +14,17 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<distributionManagement>
+		<repository>
+			<id>packagecloud-fhv-msi</id>
+			<url>packagecloud+https://packagecloud.io/fhv-msi/sentiment_analysis</url>
+		</repository>
+		<snapshotRepository>
+			<id>packagecloud-fhv-msi</id>
+			<url>packagecloud+https://packagecloud.io/fhv-msi/sentiment_analysis</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -70,6 +81,14 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<extensions>
+			<extension>
+				<groupId>io.packagecloud.maven.wagon</groupId>
+				<artifactId>maven-packagecloud-wagon</artifactId>
+				<version>0.0.6</version>
+			</extension>
+		</extensions>
 	</build>
 
 	<repositories>
