@@ -1,7 +1,23 @@
-language: java
-
-install:
-  - cp .travis.settings.xml $HOME/.m2/settings.xml
-
-script:
-  - "mvn deploy"
+jobs:
+  include:
+    - stage: build backend
+      install:
+        - cp .travis.settings.xml $HOME/.m2/settings.xml
+      script:
+        - mvn deploy
+    - stage: deploy to staging
+      script: skip
+      deploy: &heroku
+        provider: heroku
+        app: fhv-backend-staging
+        api_key: $HEROKU_API_KEY
+    - stage: test staging
+      script:
+        - 'curl https://fhv-backend-staging.herokuapp.com/'
+    - stage: deploy to production
+      script: skip
+      deploy:
+        <<: *heroku
+        app: fhv-backend
+    - stage: test production
+      script: 'curl https://fhv-backend.herokuapp.com/'
