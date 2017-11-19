@@ -44,13 +44,25 @@ public class AnalysisHandler {
 			return empty;
 		}
 		
-		HttpResponse response = Request.Post("http://sentiment.vivekn.com/api/text/")
-				.bodyForm(Form.form().add("txt", text).build()).execute().returnResponse();
+		HttpResponse response = Request.Post("https://apiv2.indico.io/sentiment").setHeader("X-ApiKey", System.getenv("INDICO_API_KEY"))
+				.bodyForm(Form.form().add("data", text).build()).execute().returnResponse();
 		String result = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
 		Gson gson = new GsonBuilder().create();
 		JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
-		at.fhv.sentiment_analysis.models.SentimentResult sentimentResult = gson.fromJson(jsonObject.get("result"),
-				at.fhv.sentiment_analysis.models.SentimentResult.class);
+		float confidence = gson.fromJson(jsonObject.get("results"),
+				Float.class);
+		
+		at.fhv.sentiment_analysis.models.SentimentResult sentimentResult = new at.fhv.sentiment_analysis.models.SentimentResult();
+		sentimentResult.setConfidence(confidence);
+		if(confidence > 0.5f) {
+			sentimentResult.setSentiment("Positive");
+		} else if (confidence < 0.5f) {
+			sentimentResult.setSentiment("Negative");
+		} else {
+			sentimentResult.setSentiment("Neutral");
+		}
+		
+		
 		HistoryHandler.getInstance().addHistory(token, text, sentimentResult);
 		return sentimentResult;
 		// End of user code
