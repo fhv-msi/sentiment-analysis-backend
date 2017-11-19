@@ -53,13 +53,15 @@ public class AnalysisHandler {
 				Float.class);
 		
 		at.fhv.sentiment_analysis.models.SentimentResult sentimentResult = new at.fhv.sentiment_analysis.models.SentimentResult();
-		sentimentResult.setConfidence(confidence);
 		if(confidence > 0.5f) {
 			sentimentResult.setSentiment("Positive");
+			sentimentResult.setConfidence(confidence);
 		} else if (confidence < 0.5f) {
 			sentimentResult.setSentiment("Negative");
+			sentimentResult.setConfidence(confidence);
 		} else {
 			sentimentResult.setSentiment("Neutral");
+			sentimentResult.setConfidence(1 - confidence);
 		}
 		
 		
