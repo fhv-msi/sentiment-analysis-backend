@@ -16,29 +16,6 @@ import at.fhv.sentiment_analysis.models.SentimentResult;
 public class HistoryEndpointIT {
 
 	/**
-	 * Test successful history loading
-	 */
-	@Test
-	public void testGetHistory() throws Exception {
-		AuthEndpoint authEndpoint = new AuthEndpoint();
-		AnalysisEndoint analysisEndpoint = new AnalysisEndoint();
-		String token = authEndpoint.login("user@test.com");
-		SentimentResult result = analysisEndpoint.analyze("i hate people", token);
-		
-		HistoryEndpoint historyEndpoint = new HistoryEndpoint();
-		History history = historyEndpoint.getHistory(token);
-		
-		Assert.assertNotNull(history);
-		Assert.assertNotNull(history.getItems());
-		Assert.assertEquals(1, history.getItems().size());
-		
-		HistoryItem item = history.getItems().get(0);
-		Assert.assertNotNull(item);
-		Assert.assertEquals(result.getConfidence(), item.getResult().getConfidence(), 0);
-		Assert.assertEquals(result.getSentiment(), item.getResult().getSentiment());
-	}
-
-	/**
 	 * Test history loading with empty token
 	 */
 	@Test(expected = Exception.class)
