@@ -59,7 +59,7 @@ public class AnalysisHandler {
 			sentimentResult.setConfidence(confidence);
 		} else if (confidence < 50f) {
 			sentimentResult.setSentiment("Negative");
-			sentimentResult.setConfidence(1 - confidence);
+			sentimentResult.setConfidence(100 - confidence);
 		} else {
 			sentimentResult.setSentiment("Neutral");
 			sentimentResult.setConfidence(confidence);
