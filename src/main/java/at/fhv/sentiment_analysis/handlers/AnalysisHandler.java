@@ -51,12 +51,13 @@ public class AnalysisHandler {
 		JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
 		float confidence = gson.fromJson(jsonObject.get("results"),
 				Float.class);
+		confidence = confidence * 100;
 		
 		at.fhv.sentiment_analysis.models.SentimentResult sentimentResult = new at.fhv.sentiment_analysis.models.SentimentResult();
-		if(confidence > 0.5f) {
+		if(confidence > 50f) {
 			sentimentResult.setSentiment("Positive");
 			sentimentResult.setConfidence(confidence);
-		} else if (confidence < 0.5f) {
+		} else if (confidence < 50f) {
 			sentimentResult.setSentiment("Negative");
 			sentimentResult.setConfidence(1 - confidence);
 		} else {
