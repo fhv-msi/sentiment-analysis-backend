@@ -9,7 +9,7 @@ jobs:
       addons:
         sonarcloud:
           organization: fhv-msi-github
-          token: $
+          token: $SONAR_TOKEN
       script:
         - mvn org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
     - stage: deploy to staging
