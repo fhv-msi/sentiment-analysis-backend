@@ -1,11 +1,6 @@
 package at.fhv.sentiment_analysis.endpoints;
 
-import org.junit.Assert;
 import org.junit.Test;
-
-import at.fhv.sentiment_analysis.models.History;
-import at.fhv.sentiment_analysis.models.HistoryItem;
-import at.fhv.sentiment_analysis.models.SentimentResult;
 
 /**
  * Integration tests for {@link HistoryEndpoint}
