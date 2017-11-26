@@ -5,6 +5,13 @@ jobs:
         - cp .travis.settings.xml $HOME/.m2/settings.xml
       script:
         - mvn deploy
+    - stage: static code analysis
+      addons:
+        sonarcloud:
+          organization: fhv-msi-github
+          token: $
+      script:
+        - mvn org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
     - stage: deploy to staging
       script: skip
       deploy: &heroku
