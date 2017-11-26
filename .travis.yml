@@ -11,13 +11,17 @@ jobs:
         provider: heroku
         app: fhv-backend-staging
         api_key: $HEROKU_API_KEY
-    - stage: test staging
+    - stage: automatic user acceptance tests on staging
       script:
-        - 'curl https://fhv-backend-staging.herokuapp.com/'
+        - cd ..
+        - "git clone https://github.com/fhv-msi/sentiment-analysis-tests.git"
+        - cd sentiment-analysis-tests
+        - mvn verify
+        - "cd ../sentiment-analysis-backend"
     - stage: deploy to production
       script: skip
       deploy:
         <<: *heroku
         app: fhv-backend
-    - stage: test production
+    - stage: check production availability
       script: 'curl https://fhv-backend.herokuapp.com/'
