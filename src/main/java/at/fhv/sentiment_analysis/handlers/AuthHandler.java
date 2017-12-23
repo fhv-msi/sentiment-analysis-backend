@@ -26,15 +26,6 @@ public class AuthHandler {
 	    return INSTANCE;
 	}
 	
-	public void logout(String token) throws Exception {
-		// Start of user code logout
-		if(token == null || "".equals(token)) {
-			throw new Exception("Unknown token");
-		}
-		users.remove(token);
-		// End of user code
-	}
-	
 	public String login(String email) throws Exception {
 		// Start of user code login
 		if(email == null || "".equals(email)) {
@@ -50,6 +41,15 @@ public class AuthHandler {
 	        }
 
 	        return token;
+		// End of user code
+	}
+	
+	public void logout(String token) throws Exception {
+		// Start of user code logout
+		if(token == null || "".equals(token)) {
+			throw new Exception("Unknown token");
+		}
+		users.remove(token);
 		// End of user code
 	}
 	
