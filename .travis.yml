@@ -11,20 +11,39 @@ jobs:
           organization: fhv-msi-github
           token: $SONAR_TOKEN
       script:
-        - mvn org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+        - mvn org.jacoco:jacoco-maven-plugin:prepare-agent javadoc:javadoc package sonar:sonar
+        - cd ..
+        - "git clone https://github.com/fhv-msi/sentiment-analysis-docs.git"
+        - rm -rf sentiment-analysis-docs/generated/jacoco-ut sentiment-analysis-docs/generated/jacoco-it sentiment-analysis-docs/generated/apidocs
+        - cp -r sentiment-analysis-backend/target/site/jacoco-ut ../../sentiment-analysis-docs/generated/
+        - cp -r sentiment-analysis-backend/target/site/jacoco-it ../../sentiment-analysis-docs/generated/
+        - cp -r sentiment-analysis-backend/target/site/apidocs ../../sentiment-analysis-docs/generated/
+        - cd sentiment-analysis-docs/generated
+        - git add --all
+        - git commit -am "update documentation"
+        - git push
     - stage: deploy to staging
       script: skip
       deploy: &heroku
         provider: heroku
         app: fhv-backend-staging
         api_key: $HEROKU_API_KEY
+    - stage:
     - stage: automatic user acceptance tests on staging
       script:
         - cd ..
         - "git clone https://github.com/fhv-msi/sentiment-analysis-tests.git"
         - cd sentiment-analysis-tests
         - mvn verify
-        - "cd ../sentiment-analysis-backend"
+        - cd ..
+        - "git clone https://github.com/fhv-msi/sentiment-analysis-docs.git"
+        - rm -rf sentiment-analysis-docs/generated/cukedoctor sentiment-analysis-docs/generated/walk_through.mp4
+        - cp sentiment-analysis-tests/target/cukedoctor sentiment-analysis-docs/generated/
+        - cd sentiment-analysis-docs/generated
+        - ../../sentiment-analysis-tests/scripts/download_walk_through_video.py
+        - git add --all
+        - git commit -am "update documentation"
+        - git push
     - stage: deploy to production
       script: skip
       deploy:
