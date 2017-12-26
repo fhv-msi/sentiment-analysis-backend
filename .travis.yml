@@ -11,7 +11,7 @@ jobs:
           organization: fhv-msi-github
           token: $SONAR_TOKEN
       script:
-        - mvn org.jacoco:jacoco-maven-plugin:prepare-agent javadoc:javadoc package sonar:sonar
+        - mvn org.jacoco:jacoco-maven-plugin:prepare-agent javadoc:javadoc verify sonar:sonar
         - cd ..
         - "git clone https://github.com/fhv-msi/sentiment-analysis-docs.git"
         - rm -rf sentiment-analysis-docs/generated/jacoco-ut sentiment-analysis-docs/generated/jacoco-it sentiment-analysis-docs/generated/apidocs
