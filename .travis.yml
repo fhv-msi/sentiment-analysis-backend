@@ -15,9 +15,9 @@ jobs:
         - cd ..
         - "git clone https://github.com/fhv-msi/sentiment-analysis-docs.git"
         - rm -rf sentiment-analysis-docs/generated/jacoco-ut sentiment-analysis-docs/generated/jacoco-it sentiment-analysis-docs/generated/apidocs
-        - cp -r sentiment-analysis-backend/target/site/jacoco-ut ../../sentiment-analysis-docs/generated/
-        - cp -r sentiment-analysis-backend/target/site/jacoco-it ../../sentiment-analysis-docs/generated/
-        - cp -r sentiment-analysis-backend/target/site/apidocs ../../sentiment-analysis-docs/generated/
+        - cp -r sentiment-analysis-backend/target/site/jacoco-ut sentiment-analysis-docs/generated/
+        - cp -r sentiment-analysis-backend/target/site/jacoco-it sentiment-analysis-docs/generated/
+        - cp -r sentiment-analysis-backend/target/site/apidocs sentiment-analysis-docs/generated/
         - cd sentiment-analysis-docs/generated
         - git add --all
         - git commit -am "update documentation"
