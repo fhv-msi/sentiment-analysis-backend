@@ -21,7 +21,7 @@ jobs:
         - cd sentiment-analysis-docs/generated
         - git add --all
         - git commit -am "update documentation"
-        - git push
+        - git push "https://${TRAVIS_GITHUB_TOKEN}@github.com/fhv-msi/sentiment-analysis-docs.git" master
     - stage: deploy to staging
       script: skip
       deploy: &heroku
@@ -38,12 +38,12 @@ jobs:
         - cd ..
         - "git clone https://github.com/fhv-msi/sentiment-analysis-docs.git"
         - rm -rf sentiment-analysis-docs/generated/cukedoctor sentiment-analysis-docs/generated/walk_through.mp4
-        - cp sentiment-analysis-tests/target/cukedoctor sentiment-analysis-docs/generated/
+        - cp -r sentiment-analysis-tests/target/cukedoctor sentiment-analysis-docs/generated/
         - cd sentiment-analysis-docs/generated
-        - ../../sentiment-analysis-tests/scripts/download_walk_through_video.py
+        - ../../sentiment-analysis-tests/scripts/get_testingbot_video.py
         - git add --all
         - git commit -am "update documentation"
-        - git push
+        - git push "https://${TRAVIS_GITHUB_TOKEN}@github.com/fhv-msi/sentiment-analysis-docs.git" master
     - stage: deploy to production
       script: skip
       deploy:
