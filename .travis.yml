@@ -28,7 +28,6 @@ jobs:
         provider: heroku
         app: fhv-backend-staging
         api_key: $HEROKU_API_KEY
-    - stage:
     - stage: automatic user acceptance tests on staging
       script:
         - cd ..
